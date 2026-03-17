@@ -1,0 +1,213 @@
+-- MySQL dump 10.13  Distrib 5.7.17, for Win64 (x86_64)
+--
+-- Host: 127.0.0.1    Database: projekat
+-- ------------------------------------------------------
+-- Server version	5.7.17-log
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+--
+-- Table structure for table `dogadjaji`
+--
+
+DROP TABLE IF EXISTS `dogadjaji`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `dogadjaji` (
+  `DogadjajId` int(11) NOT NULL AUTO_INCREMENT,
+  `SportId` int(11) NOT NULL,
+  `TerenId` int(11) NOT NULL,
+  `OrganizatorId` int(11) NOT NULL,
+  `DatumVreme` datetime NOT NULL,
+  `MaxIgraca` int(11) NOT NULL,
+  `Opis` varchar(255) DEFAULT NULL,
+  `Kreirano` datetime DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`DogadjajId`),
+  KEY `SportId` (`SportId`),
+  KEY `TerenId` (`TerenId`),
+  KEY `OrganizatorId` (`OrganizatorId`),
+  CONSTRAINT `dogadjaji_ibfk_1` FOREIGN KEY (`SportId`) REFERENCES `sportovi` (`SportId`),
+  CONSTRAINT `dogadjaji_ibfk_2` FOREIGN KEY (`TerenId`) REFERENCES `tereni` (`TerenId`),
+  CONSTRAINT `dogadjaji_ibfk_3` FOREIGN KEY (`OrganizatorId`) REFERENCES `korisnici` (`KorisnikId`)
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `dogadjaji`
+--
+
+LOCK TABLES `dogadjaji` WRITE;
+/*!40000 ALTER TABLE `dogadjaji` DISABLE KEYS */;
+INSERT INTO `dogadjaji` VALUES (1,1,2,1,'2025-08-15 18:00:00',10,'Fudbalski termin sa ekipom iz kraja','2025-08-08 12:00:00'),(2,2,1,2,'2025-08-16 19:30:00',4,'Teniski meč u parovima','2025-08-08 13:45:00'),(5,1,1,3,'2026-03-03 23:03:00',5,'sdasdasd','2025-08-22 00:00:53'),(8,2,2,3,'2026-01-01 22:22:00',5,'sasdasd','2025-10-02 18:08:58'),(10,1,1,3,'2026-02-22 22:22:00',5,'sdasdads','2025-10-02 18:46:56'),(11,1,1,3,'2026-01-01 22:22:00',5,'2','2025-10-02 19:24:19'),(17,2,4,3,'2025-10-07 02:02:00',3,'','2025-10-03 18:57:47'),(18,4,4,3,'2025-11-06 05:06:00',5,'5','2025-10-03 18:59:05'),(19,3,2,3,'2025-11-07 06:06:00',5,'5','2025-10-03 18:59:59'),(20,3,3,3,'2025-11-03 03:02:00',5,'5','2025-10-03 19:05:55'),(22,3,3,3,'2025-10-03 19:41:00',5,'5','2025-10-03 19:40:18'),(24,4,3,4,'2025-12-21 02:01:00',4,'1','2025-10-05 19:49:25'),(25,5,1,6,'2025-10-09 05:05:00',5,'5','2025-10-08 18:02:56'),(26,2,1,3,'2025-10-09 06:08:00',5,'5','2025-10-08 18:05:37'),(27,1,3,8,'2025-10-10 13:35:00',5,'sdsd','2025-10-09 13:35:32');
+/*!40000 ALTER TABLE `dogadjaji` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `korisnici`
+--
+
+DROP TABLE IF EXISTS `korisnici`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `korisnici` (
+  `KorisnikId` int(11) NOT NULL AUTO_INCREMENT,
+  `Ime` varchar(50) NOT NULL,
+  `Prezime` varchar(50) NOT NULL,
+  `Email` varchar(100) NOT NULL,
+  `Lozinka` varchar(255) NOT NULL,
+  `Grad` varchar(100) DEFAULT NULL,
+  `DatumRodjenja` date DEFAULT NULL,
+  `Kreirano` datetime DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`KorisnikId`),
+  UNIQUE KEY `Email` (`Email`),
+  UNIQUE KEY `UQ_Email` (`Email`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `korisnici`
+--
+
+LOCK TABLES `korisnici` WRITE;
+/*!40000 ALTER TABLE `korisnici` DISABLE KEYS */;
+INSERT INTO `korisnici` VALUES (1,'Milos','Milenkovic','milos@gmail.com','$2b$10$qqzdXw6xR69Fxlz0dhFksu/dNCXzCcprCwFlwLz2AutTQCGfJUHyu','Nis','1995-08-05','2025-08-05 22:11:50'),(2,'Marko','Milenovic','marko@gmail.com','$2b$10$QdCs2sCG/fTuHC5G2NEICemTnyXdbmhl1xnlnUQp4Vu2YM/EaQYk.','Nis','1996-08-05','2025-08-05 22:12:58'),(3,'Zoran','Madic','imeprezime@gmail.com','$2b$10$qY2yxYyZFEZLCM4ql/NRJ.UWMZr7nnXUDncRbeyj0Ev78LqanWQMS','Nis','1995-08-05','2025-08-19 18:49:05'),(4,'Marko','Milenovic','milenovicm03@gmail.com','$2b$10$gT8mbBJ0.86m1p.M/n34mOvJ7EgKKP.3Y6ODFuFhO5keU.gmbb76m','Niš','2003-04-28','2025-08-21 15:39:10'),(5,'Ognjen','Nikolicc','ognjenn.nikolicci3@gmail.com','$2b$10$/ziXpO9uWd36duT4IGjU7.CpqqcR/i6jGlilnse2MkP2TiZzlegFO','Nis','2003-10-15','2025-08-21 15:47:48'),(6,'Milos','Milenkovic','milosmiske333@gmail.com','$2b$10$LMEIUlOSoOkxdxpRifwdKOyhqYpo6dXk0v8PuNFC/GXWC50j.A.Hm','Niš','1996-09-10','2025-10-08 18:02:17'),(7,'asasda','sadasdas','frula@gmail.com','$2b$10$gv9A115xwHrnZ/YsXqhq2OIoml3puO6L/aJU5YoT5xy.mQysXqNWy','sadasdas','2025-10-06','2025-10-08 18:49:40'),(8,'Marko','Milenovic','mmmilenoviccc@gmail.com','$2b$10$UjG6T89LvXd2SZDJQ6v7I.s3nzHcn5pSz5jqgTuUoxYUKZQx1p8ha','Nis','2024-01-02','2025-10-09 13:33:30');
+/*!40000 ALTER TABLE `korisnici` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `ocene`
+--
+
+DROP TABLE IF EXISTS `ocene`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `ocene` (
+  `OcenaId` int(11) NOT NULL AUTO_INCREMENT,
+  `OcenjivacId` int(11) NOT NULL,
+  `DogadjajId` int(11) NOT NULL,
+  `Ocena` int(11) NOT NULL,
+  `Komentar` varchar(255) DEFAULT NULL,
+  `Kreirano` datetime DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`OcenaId`),
+  KEY `OcenjivacId` (`OcenjivacId`),
+  KEY `DogadjajId` (`DogadjajId`),
+  CONSTRAINT `ocene_ibfk_1` FOREIGN KEY (`OcenjivacId`) REFERENCES `korisnici` (`KorisnikId`),
+  CONSTRAINT `ocene_ibfk_3` FOREIGN KEY (`DogadjajId`) REFERENCES `dogadjaji` (`DogadjajId`)
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `ocene`
+--
+
+LOCK TABLES `ocene` WRITE;
+/*!40000 ALTER TABLE `ocene` DISABLE KEYS */;
+INSERT INTO `ocene` VALUES (1,3,1,2,NULL,'2025-08-21 03:05:57'),(2,3,2,3,NULL,'2025-08-21 03:06:47'),(3,1,1,2,NULL,'2025-08-21 13:36:32'),(4,5,1,4,NULL,'2025-08-21 15:48:21'),(5,3,5,2,NULL,'2025-08-22 00:18:21'),(9,1,2,2,NULL,'2025-09-27 21:50:08'),(10,4,1,4,NULL,'2025-10-02 15:45:11'),(12,3,8,2,NULL,'2025-10-02 19:28:57'),(14,3,11,1,NULL,'2025-10-03 18:22:40'),(16,3,22,3,'majmun zika','2025-10-03 19:41:11');
+/*!40000 ALTER TABLE `ocene` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `sportovi`
+--
+
+DROP TABLE IF EXISTS `sportovi`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `sportovi` (
+  `SportId` int(11) NOT NULL AUTO_INCREMENT,
+  `Naziv` varchar(50) NOT NULL,
+  PRIMARY KEY (`SportId`),
+  UNIQUE KEY `Naziv` (`Naziv`),
+  UNIQUE KEY `UQ_Naziv` (`Naziv`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `sportovi`
+--
+
+LOCK TABLES `sportovi` WRITE;
+/*!40000 ALTER TABLE `sportovi` DISABLE KEYS */;
+INSERT INTO `sportovi` VALUES (1,'Fudbal'),(2,'Kosarka'),(5,'Padel'),(4,'StoniTenis'),(3,'Tenis');
+/*!40000 ALTER TABLE `sportovi` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `tereni`
+--
+
+DROP TABLE IF EXISTS `tereni`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `tereni` (
+  `TerenId` int(11) NOT NULL AUTO_INCREMENT,
+  `Naziv` varchar(100) NOT NULL,
+  `Adresa` varchar(255) NOT NULL,
+  `Grad` varchar(100) NOT NULL,
+  `Kontakt` varchar(255) DEFAULT NULL,
+  `Sirina` float DEFAULT NULL,
+  `Duzina` float DEFAULT NULL,
+  PRIMARY KEY (`TerenId`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `tereni`
+--
+
+LOCK TABLES `tereni` WRITE;
+/*!40000 ALTER TABLE `tereni` DISABLE KEYS */;
+INSERT INTO `tereni` VALUES (1,'Sportski Centar Ada','Savski nasip bb','Beograd','011/123-456',20.5,40),(2,'Teren Voždovac','Ustanička 125','Beograd','011/987-654',18,36),(3,'SC Novi Sad','Bulevar Oslobođenja 45','Novi Sad','021/555-222',22,42),(4,'Teren Niš','Bulevar Nemanjića 25','Niš','018/333-777',21,39);
+/*!40000 ALTER TABLE `tereni` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `ucesnicidogadjaja`
+--
+
+DROP TABLE IF EXISTS `ucesnicidogadjaja`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `ucesnicidogadjaja` (
+  `DogadjajId` int(11) NOT NULL,
+  `KorisnikId` int(11) NOT NULL,
+  `Pridruzen` datetime DEFAULT CURRENT_TIMESTAMP,
+  `SportId` int(11) DEFAULT NULL,
+  PRIMARY KEY (`DogadjajId`,`KorisnikId`),
+  KEY `KorisnikId` (`KorisnikId`),
+  KEY `FK_Sport` (`SportId`),
+  CONSTRAINT `FK_Sport` FOREIGN KEY (`SportId`) REFERENCES `sportovi` (`SportId`),
+  CONSTRAINT `ucesnicidogadjaja_ibfk_1` FOREIGN KEY (`DogadjajId`) REFERENCES `dogadjaji` (`DogadjajId`),
+  CONSTRAINT `ucesnicidogadjaja_ibfk_2` FOREIGN KEY (`KorisnikId`) REFERENCES `korisnici` (`KorisnikId`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `ucesnicidogadjaja`
+--
+
+LOCK TABLES `ucesnicidogadjaja` WRITE;
+/*!40000 ALTER TABLE `ucesnicidogadjaja` DISABLE KEYS */;
+INSERT INTO `ucesnicidogadjaja` VALUES (1,1,'2025-08-21 13:36:41',1),(1,2,'2025-08-09 18:00:27',NULL),(1,3,'2025-10-03 18:09:37',1),(1,5,'2025-08-21 15:48:23',1),(2,3,'2025-10-03 19:16:25',2),(10,3,'2025-10-03 20:16:31',1),(11,3,'2025-10-03 20:12:11',1),(11,4,'2025-10-04 14:58:37',1),(11,8,'2025-10-09 13:37:05',1),(17,3,'2025-10-03 19:15:56',2),(20,3,'2025-10-03 19:39:22',3),(22,3,'2025-10-03 19:40:30',3),(25,3,'2025-10-08 18:05:11',5),(25,5,'2025-10-08 18:24:54',5),(26,6,'2025-10-08 18:06:05',2),(27,5,'2025-10-09 13:37:47',1);
+/*!40000 ALTER TABLE `ucesnicidogadjaja` ENABLE KEYS */;
+UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2025-11-02 23:18:06
